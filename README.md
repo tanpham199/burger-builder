@@ -5,7 +5,7 @@ Allow users to build their own, customized ingredients burgers.
 * Firebase to store data
 * Axios to handle requests
 * CSS Module to import CSS-in-JS
-* React Route to navigate between pages
+* React Router to navigate between pages
 * Redux
 
 ## Commands
