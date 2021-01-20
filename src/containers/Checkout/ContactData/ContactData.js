@@ -124,6 +124,16 @@ class ContactData extends Component {
 			isValid = value.length <= rules.maxLength && isValid;
 		}
 
+		if (rules.isEmail) {
+			const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			isValid = pattern.test(String(value).toLowerCase()) && isValid;
+		}
+
+		if (rules.isNumeric) {
+			const pattern = /^\d+$/;
+			isValid = pattern.test(value) && isValid;
+		}
+
 		return isValid;
 	}
 
