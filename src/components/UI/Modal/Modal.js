@@ -5,10 +5,7 @@ import Backdrop from '../Backdrop/Backdrop';
 
 class modal extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return (
-            nextProps.show !== this.props.show ||
-            nextProps.children !== this.props.children
-        );
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
 
     componentDidUpdate() {
@@ -18,16 +15,11 @@ class modal extends Component {
     render() {
         return (
             <Fragment>
-                <Backdrop
-                    show={this.props.show}
-                    clicked={this.props.modalClosed}
-                />
+                <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
                 <div
                     className={classes.Modal}
                     style={{
-                        transform: this.props.show
-                            ? 'translateY(0)'
-                            : 'translateY(-100vh)',
+                        transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
                         opacity: this.props.show ? '1' : '0',
                     }}
                 >

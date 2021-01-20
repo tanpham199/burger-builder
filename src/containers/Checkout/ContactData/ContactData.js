@@ -98,9 +98,7 @@ class ContactData extends Component {
         event.preventDefault();
         const formData = {};
         for (let formElementIdentifier in this.state.orderForm) {
-            formData[formElementIdentifier] = this.state.orderForm[
-                formElementIdentifier
-            ].value;
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
         const order = {
             ingredients: this.props.ings,
@@ -147,17 +145,13 @@ class ContactData extends Component {
             ...updatedOrderForm[inputIdentifier],
         };
         updatedElement.value = event.target.value;
-        updatedElement.valid = this.checkValidity(
-            updatedElement.value,
-            updatedElement.validation
-        );
+        updatedElement.valid = this.checkValidity(updatedElement.value, updatedElement.validation);
         updatedElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedElement;
 
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
-            formIsValid =
-                updatedOrderForm[inputIdentifier].valid && formIsValid;
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
 
         this.setState({
@@ -183,9 +177,7 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
-                        changed={(event) =>
-                            this.inputChangedHandler(event, formElement.id)
-                        }
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)}
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
                         invalid={!formElement.config.valid}
@@ -219,12 +211,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onOrderBurger: (orderData) =>
-            dispatch(actions.purchaseBurger(orderData)),
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)),
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withErrorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
