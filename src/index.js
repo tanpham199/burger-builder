@@ -14,22 +14,25 @@ import authReducer from './store/reducers/auth';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-	burgerBuilder: burgerBuilderReducer,
-	order: orderReducer,
-	auth: authReducer,
+    burgerBuilder: burgerBuilderReducer,
+    order: orderReducer,
+    auth: authReducer,
 });
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
-	<Provider store={store}>
-		<BrowserRouter>
-			<React.StrictMode>
-				<App />
-			</React.StrictMode>
-		</BrowserRouter>
-	</Provider>,
-	document.getElementById('root')
+    <Provider store={store}>
+        <BrowserRouter>
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById('root')
 );
 
 serviceWorker.unregister();

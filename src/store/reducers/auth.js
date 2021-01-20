@@ -2,47 +2,47 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../ultility';
 
 const initialState = {
-	token: null,
-	userId: null,
-	error: null,
-	loading: false,
+    token: null,
+    userId: null,
+    error: null,
+    loading: false,
 };
 
 const authStart = (state, action) => {
-	return updateObject(state, {
-		error: null,
-		loading: true,
-	});
+    return updateObject(state, {
+        error: null,
+        loading: true,
+    });
 };
 
 const authSuccess = (state, action) => {
-	return updateObject(state, {
-		token: action.idToken,
-		userId: action.userId,
-		error: null,
-		loading: false,
-	});
+    return updateObject(state, {
+        token: action.idToken,
+        userId: action.userId,
+        error: null,
+        loading: false,
+    });
 };
 
 const authFail = (state, action) => {
-	return updateObject(state, {
-		error: action.error,
-		loading: false,
-	});
+    return updateObject(state, {
+        error: action.error,
+        loading: false,
+    });
 };
 
 const reducer = (state = initialState, action) => {
-	switch (action.type) {
-		case actionTypes.AUTH_START:
-			return authStart(state, action);
-		case actionTypes.AUTH_SUCCESS:
-			console.log(action);
-			return authSuccess(state, action);
-		case actionTypes.AUTH_FAIL:
-			return authFail(state, action);
-		default:
-			return state;
-	}
+    switch (action.type) {
+        case actionTypes.AUTH_START:
+            return authStart(state, action);
+        case actionTypes.AUTH_SUCCESS:
+            console.log(action);
+            return authSuccess(state, action);
+        case actionTypes.AUTH_FAIL:
+            return authFail(state, action);
+        default:
+            return state;
+    }
 };
 
 export default reducer;
