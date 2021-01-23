@@ -7,6 +7,7 @@ import Input from '../../../components/UI/Input/Input';
 import { connect } from 'react-redux';
 import withErrorHandler from '../../withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import { updateObject, checkValidity } from '../../../shared/ultility';
 
 class ContactData extends Component {
     state = {
@@ -110,45 +111,19 @@ class ContactData extends Component {
         this.props.onOrderBurger(order, this.props.token);
     };
 
-    checkValidity(value, rules) {
-        let isValid = true;
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        if (rules.isEmail) {
-            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            isValid = pattern.test(String(value).toLowerCase()) && isValid;
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        return isValid;
-    }
-
     inputChangedHandler = (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm,
-        };
-        const updatedElement = {
-            ...updatedOrderForm[inputIdentifier],
-        };
-        updatedElement.value = event.target.value;
-        updatedElement.valid = this.checkValidity(updatedElement.value, updatedElement.validation);
-        updatedElement.touched = true;
-        updatedOrderForm[inputIdentifier] = updatedElement;
+        const updatedElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            valid: checkValidity(
+                event.target.value,
+                this.state.orderForm[inputIdentifier].validation
+            ),
+            touched: true,
+        });
+
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedElement,
+        });
 
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
